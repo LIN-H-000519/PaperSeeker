@@ -1,15 +1,16 @@
 # Research Keywords - Editable in real-time
 # OpenAlex searches each keyword separately (max 1000 per keyword)
 research_keywords:
-  # Example keywords - customize for your research
-  - machine learning
-  - artificial intelligence
-  - deep learning
+  - "heavy-duty truck electrification"
+  - "truck battery swapping"
+  - "electric truck battery"
+  - "hydrogen fuel cell truck"
+  - "commercial vehicle fleet electrification"
 
 # Exclude Keywords - Topics you don't want to see
 exclude_keywords:
-  - pure mathematics
-  - pure chemistry
+  - "passenger car"
+  - "small vehicle"
 
 # LLM Filter Prompt - Customizable
 filter_prompt: |
@@ -17,9 +18,10 @@ filter_prompt: |
   Please determine if the following paper is relevant to your research interests.
 
   Your research interests include:
-  - Machine learning and AI applications
-  - Data analysis and optimization
-  - [Add your specific research areas here]
+  - Heavy-duty truck electrification
+  - Battery swapping technology for trucks
+  - Hydrogen fuel cell trucks
+  - Commercial fleet electrification
 
   Please rate relevance based on title and abstract.
 
