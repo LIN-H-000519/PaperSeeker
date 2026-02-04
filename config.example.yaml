@@ -1,0 +1,34 @@
+# Email Configuration
+email:
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+  sender_email: "your-email@gmail.com"
+  sender_password: "${EMAIL_PASSWORD}"  # Read from .env (app password)
+  recipient_email: "recipient@example.com"
+
+# OpenAlex API Configuration
+openalex:
+  api_url: "https://api.openalex.org"
+
+# LLM API Configuration (compatible with Paratera and OpenAI APIs)
+llm:
+  provider: "openai"  # OpenAI-compatible client
+  model: "Qwen3-Coder-480B-A35B-Instruct"
+  api_key: "${PARATERA_API_KEY}"
+  base_url: "https://llmapi.paratera.com/v1/"
+
+# Search Configuration
+search:
+  # Maximum number of papers to return per search
+  max_results: 20
+  # Search time range (days) - only search new papers from recent N days
+  days_back: 1
+  # Minimum relevance threshold (1-5)
+  relevance_threshold: 3
+
+# Scheduler Configuration
+scheduler:
+  # Push time (UTC) - e.g., 21:00 = 05:00 Beijing Time
+  trigger_time: "21:00"
+  # Enable scheduled tasks
+  enabled: true

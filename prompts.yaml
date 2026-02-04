@@ -1,0 +1,70 @@
+# Research Keywords - Editable in real-time
+# OpenAlex searches each keyword separately (max 1000 per keyword)
+research_keywords:
+  # Example keywords - customize for your research
+  - machine learning
+  - artificial intelligence
+  - deep learning
+
+# Exclude Keywords - Topics you don't want to see
+exclude_keywords:
+  - pure mathematics
+  - pure chemistry
+
+# LLM Filter Prompt - Customizable
+filter_prompt: |
+  You are a researcher reviewing academic papers.
+  Please determine if the following paper is relevant to your research interests.
+
+  Your research interests include:
+  - Machine learning and AI applications
+  - Data analysis and optimization
+  - [Add your specific research areas here]
+
+  Please rate relevance based on title and abstract.
+
+  Output format (only return these two lines):
+  Score: [1-5]
+  Reason: [Brief explanation]
+
+  Scoring criteria:
+  1 - Not relevant at all
+  2 - Slightly related but not needed
+  3 - Related but not core to your research
+  4 - Relevant, recommended for review
+  5 - Highly relevant, should focus on
+
+# Summary generation threshold: only generate summaries for papers with score >= this value
+summarize_threshold: 4
+
+# Summary Prompt - Bilingual summary generation
+summarize_prompt: |
+  You are an academic assistant. Task: Summarize the paper abstract in Chinese.
+
+  【Paper Info】（Copy exactly）
+  - Title: {title}
+  - Authors: {authors}
+  - Journal: {journal}
+  - Abstract: {abstract}
+
+  【Requirements】
+  1. Copy title, authors, and journal info exactly, do not modify
+  2. Summarize the abstract in Chinese (~80 words)
+  3. Maintain professionalism and accuracy
+  4. If abstract is empty, output: "（原文摘要不可用）"
+
+  【Output Format】
+  【中文摘要】
+  [Chinese summary]
+
+  English Abstract:
+  [Copy original abstract]
+
+# Email Template
+email:
+  subject: "PaperSeeker: {date} Papers ({count})"
+  greeting: "Hello, here are today's paper recommendations."
+  footer: |
+    --
+    PaperSeeker - AI Paper Tracker
+    Powered by OpenAlex + Paratera LLM
