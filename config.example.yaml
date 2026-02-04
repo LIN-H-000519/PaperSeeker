@@ -10,11 +10,11 @@ email:
 openalex:
   api_url: "https://api.openalex.org"
 
-# LLM API Configuration (compatible with Paratera and OpenAI APIs)
+# LLM API Configuration (compatible with Paratera, DeepSeek, OpenAI APIs)
 llm:
   provider: "openai"  # OpenAI-compatible client
-  model: "Qwen3-Coder-480B-A35B-Instruct"
-  api_key: "${PARATERA_API_KEY}"
+  model: "DeepSeek-V3.2"
+  api_key: "${API_KEY}"
   base_url: "https://llmapi.paratera.com/v1/"
 
 # Search Configuration

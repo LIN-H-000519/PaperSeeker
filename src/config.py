@@ -126,15 +126,16 @@ class Config:
 
     @property
     def llm_provider(self) -> str:
-        return self.llm.get("provider", "anthropic")
+        return self.llm.get("provider", "openai")
 
     @property
     def llm_model(self) -> str:
-        return self.llm.get("model", "claude-sonnet-4-20250514")
+        return self.llm.get("model", "DeepSeek-V3.2")
 
     @property
     def llm_api_key(self) -> str:
-        return self.llm.get("api_key", "")
+        # Check environment variable first
+        return os.environ.get("API_KEY", "") or self.llm.get("api_key", "")
 
     @property
     def llm_base_url(self) -> str:

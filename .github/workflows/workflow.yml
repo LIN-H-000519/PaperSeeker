@@ -30,7 +30,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "PARATERA_API_KEY=${{ secrets.PARATERA_API_KEY }}" > .env
+          echo "API_KEY=${{ secrets.API_KEY }}" > .env
           echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
 
       - name: Copy config template
