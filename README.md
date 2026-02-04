@@ -33,11 +33,14 @@ cp .env.example .env
 notepad .env
 ```
 
-Configure your API credentials in `.env`:
-- `API_KEY` - LLM API key (get from [Paratera](https://www.paratera.com/llm-api) or [DeepSeek](https://platform.deepseek.com))
-- `EMAIL_PASSWORD` - Email app password
-  - **Gmail**: Enable 2FA first, then get app password at https://myaccount.google.com/apppasswords
-  - **163 Mail**: Enable IMAP in settings, get authorization code at https://mail.163.com/settings/index
+Configure all API credentials in `.env`:
+- `API_KEY` - Your LLM API key
+- `LLM_MODEL` - LLM model name (e.g., DeepSeek-V3.2)
+- `LLM_BASE_URL` - API endpoint URL
+- `EMAIL_PASSWORD` - Email app password (Gmail/163)
+- `SENDER_EMAIL` - Your email address
+- `RECIPIENT_EMAIL` - Recipient email address
+- `SMTP_SERVER` / `SMTP_PORT` - Email server settings
 
 ### 3. Configure Settings
 
@@ -49,7 +52,7 @@ cp config.example.yaml config.yaml
 nano config.yaml
 ```
 
-Configure email server and LLM parameters.
+Configure search and scheduler settings.
 
 ### 4. Define Research Interests
 
@@ -82,10 +85,10 @@ python main.py
 
 ```
 PaperSeeker/
-├── config.yaml              # Config file (sensitive, not committed)
+├── config.yaml              # Search & scheduler config (not committed)
 ├── prompts.yaml             # User-editable prompts and keywords
 ├── requirements.txt         # Dependencies
-├── .env.example            # Environment template
+├── .env.example            # Environment template (fill in your credentials)
 ├── .gitignore              # Git ignore rules
 ├── src/
 │   ├── __init__.py
@@ -103,34 +106,49 @@ PaperSeeker/
 
 ## Configuration
 
-All configurable settings are in `config.yaml`:
+### Environment Variables (`.env`)
 
-```yaml
+All sensitive credentials and API configurations are in `.env`:
+
+```bash
 # LLM API Configuration
-llm:
-  provider: "openai"        # OpenAI-compatible client
-  model: "DeepSeek-V3.2"   # Update to your preferred model
-  api_key: "${API_KEY}"     # Read from .env
-  base_url: "https://llmapi.paratera.com/v1/"  # Update for your API provider
+API_KEY=your-api-key
+LLM_MODEL=DeepSeek-V3.2
+LLM_BASE_URL=https://llmapi.paratera.com/v1/
 
 # Email Configuration
-email:
-  smtp_server: "smtp.gmail.com"   # or "smtp.163.com"
-  smtp_port: 587                   # 25 for 163 mail
-  sender_email: "your-email@domain.com"
-  sender_password: "${EMAIL_PASSWORD}"
-  recipient_email: "recipient@example.com"
+EMAIL_PASSWORD=your-app-password
+SENDER_EMAIL=your-email@domain.com
+RECIPIENT_EMAIL=recipient@example.com
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+```
 
-# Search Configuration
+### Search Settings (`config.yaml`)
+
+```yaml
 search:
   max_results: 20          # Papers per keyword
   days_back: 1             # Search recent N days
-  relevance_threshold: 3   # Minimum relevance score (1-5)
+  relevance_threshold: 3   # Minimum LLM score (1-5)
 
-# Scheduler Configuration
 scheduler:
-  trigger_time: "21:00"   # UTC time (22:00 UTC = 06:00 Beijing Time)
+  trigger_time: "21:00"   # UTC time for local scheduler
   enabled: true
+```
+
+## Email Providers
+
+Configure SMTP settings in `.env`:
+
+```bash
+# Gmail
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+
+# 163 Mail
+SMTP_SERVER=smtp.163.com
+SMTP_PORT=25
 ```
 
 ## Filtering Strategy (Cost Optimization)
@@ -150,22 +168,6 @@ python main.py --test                    # Run tests
 python main.py --run-once               # Run immediately (yesterday)
 python main.py --run-once --from-date 2025-01-14 --to-date 2025-01-14
 python main.py --send-test-email         # Send test email
-```
-
-## Email Providers
-
-Configure in `config.yaml`:
-
-```yaml
-# Gmail
-email:
-  smtp_server: "smtp.gmail.com"
-  smtp_port: 587
-
-# 163 Mail
-email:
-  smtp_server: "smtp.163.com"
-  smtp_port: 25
 ```
 
 ## GitHub Actions Setup (Automated Daily Push)

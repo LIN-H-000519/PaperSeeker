@@ -1,34 +1,25 @@
-# Email Configuration
-email:
-  smtp_server: "smtp.gmail.com"
-  smtp_port: 587
-  sender_email: "your-email@gmail.com"
-  sender_password: "${EMAIL_PASSWORD}"  # Read from .env (app password)
-  recipient_email: "recipient@example.com"
-
-# OpenAlex API Configuration
-openalex:
-  api_url: "https://api.openalex.org"
-
-# LLM API Configuration (compatible with Paratera, DeepSeek, OpenAI APIs)
-llm:
-  provider: "openai"  # OpenAI-compatible client
-  model: "DeepSeek-V3.2"
-  api_key: "${API_KEY}"
-  base_url: "https://llmapi.paratera.com/v1/"
-
+# ============================================================
 # Search Configuration
+# ============================================================
 search:
-  # Maximum number of papers to return per search
+  # Maximum number of papers to return per keyword search
   max_results: 20
+
   # Search time range (days) - only search new papers from recent N days
+  # For daily push, use 1 (yesterday)
   days_back: 1
-  # Minimum relevance threshold (1-5)
+
+  # Minimum relevance threshold for LLM filtering (1-5)
+  # Higher = stricter filtering
   relevance_threshold: 3
 
+# ============================================================
 # Scheduler Configuration
+# ============================================================
 scheduler:
-  # Push time (UTC) - e.g., 21:00 = 05:00 Beijing Time
+  # Push time (UTC) - e.g., 21:00 UTC = 06:00 Beijing Time (next day)
+  # Note: GitHub Actions workflow has its own schedule
   trigger_time: "21:00"
-  # Enable scheduled tasks
+
+  # Enable scheduled tasks (for local running)
   enabled: true

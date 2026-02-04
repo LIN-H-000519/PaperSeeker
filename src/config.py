@@ -92,23 +92,27 @@ class Config:
 
     @property
     def smtp_server(self) -> str:
-        return self.email.get("smtp_server", "smtp.gmail.com")
+        # Read from environment first, fallback to config
+        return os.environ.get("SMTP_SERVER", "") or self.email.get("smtp_server", "smtp.gmail.com")
 
     @property
     def smtp_port(self) -> int:
+        port = os.environ.get("SMTP_PORT", "")
+        if port:
+            return int(port)
         return self.email.get("smtp_port", 587)
 
     @property
     def sender_email(self) -> str:
-        return self.email.get("sender_email", "")
+        return os.environ.get("SENDER_EMAIL", "") or self.email.get("sender_email", "")
 
     @property
     def sender_password(self) -> str:
-        return self.email.get("sender_password", "")
+        return os.environ.get("EMAIL_PASSWORD", "") or self.email.get("sender_password", "")
 
     @property
     def recipient_email(self) -> str:
-        return self.email.get("recipient_email", "")
+        return os.environ.get("RECIPIENT_EMAIL", "") or self.email.get("recipient_email", "")
 
     # === OpenAlex Configuration ===
     @property
@@ -130,16 +134,15 @@ class Config:
 
     @property
     def llm_model(self) -> str:
-        return self.llm.get("model", "DeepSeek-V3.2")
+        return os.environ.get("LLM_MODEL", "") or self.llm.get("model", "DeepSeek-V3.2")
 
     @property
     def llm_api_key(self) -> str:
-        # Check environment variable first
         return os.environ.get("API_KEY", "") or self.llm.get("api_key", "")
 
     @property
     def llm_base_url(self) -> str:
-        return self.llm.get("base_url", "")
+        return os.environ.get("LLM_BASE_URL", "") or self.llm.get("base_url", "")
 
     # === Search Configuration ===
     @property
