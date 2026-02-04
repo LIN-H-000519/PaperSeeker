@@ -17,9 +17,9 @@ search:
 # Scheduler Configuration
 # ============================================================
 scheduler:
-  # Push time (UTC) - e.g., 21:00 UTC = 06:00 Beijing Time (next day)
+  # Push time (UTC) - e.g., 22:00 UTC = 06:00 Beijing Time (next day)
   # Note: GitHub Actions workflow has its own schedule
-  trigger_time: "21:00"
+  trigger_time: "22:00"
 
   # Enable scheduled tasks (for local running)
   enabled: true

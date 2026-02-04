@@ -133,7 +133,7 @@ search:
   relevance_threshold: 3   # Minimum LLM score (1-5)
 
 scheduler:
-  trigger_time: "21:00"   # UTC time for local scheduler
+  trigger_time: "22:00"   # UTC time for local scheduler
   enabled: true
 ```
 
